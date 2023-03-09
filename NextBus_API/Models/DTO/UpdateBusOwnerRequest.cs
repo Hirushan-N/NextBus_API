@@ -1,9 +1,7 @@
-﻿namespace NextBus_API.Models.Entities
+﻿namespace NextBus_API.Models.DTO
 {
-    public class BusOwner
+    public class UpdateBusOwnerRequest
     {
-        public Guid Id { get; set; }
-        public string? BusOwnerCode { get; set; } // Prefix = BOC
         public string? Name { get; set; }
         public string? NIC { get; set; }
         public string? Mobile1 { get; set; }
