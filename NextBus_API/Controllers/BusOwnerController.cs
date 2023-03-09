@@ -41,6 +41,20 @@ namespace NextBus_API.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("{busOwnerCode}")]
+        public async Task<IActionResult> GetBusOwnerByCode(String busOwnerCode)
+        {
+            var busOwner = await nextBusDbContext.BusOwners.FirstOrDefaultAsync(x => x.BusOwnerCode == busOwnerCode);
+
+            if (busOwner != null)
+            {
+                return Ok(busOwner);
+            }
+
+            return NotFound();
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddBusOwner(AddBusOwnerRequest addBusOwnerRequest)
         {
