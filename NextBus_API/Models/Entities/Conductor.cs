@@ -2,11 +2,12 @@
 
 namespace NextBus_API.Models.Entities
 {
-    public class BusOwner
+    public class Conductor
     {
         public Guid Id { get; set; }
         [Key]
-        public string? BusOwnerCode { get; set; } // Prefix = BOC
+        public string? ConductorCode { get; set; } // Prefix = CDC
+        public BusOwner BusOwner { get; set; }
         public string? Name { get; set; }
         public string? NIC { get; set; }
         public string? Mobile1 { get; set; }
@@ -14,7 +15,5 @@ namespace NextBus_API.Models.Entities
         public string? Mobile3 { get; set; }
         public string? Email { get; set; }
         public string? RegDate { get; set; }
-        public string? ServiceName { get; set; }
-        public int NoOfBuses { get; set; }
     }
 }

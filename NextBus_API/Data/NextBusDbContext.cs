@@ -12,5 +12,7 @@ namespace NextBus_API.Data
 
         //DbSet
         public DbSet<BusOwner> BusOwners { get; set; }
+
+        public DbSet<Conductor> Conductors { get; set; }
     }
 }

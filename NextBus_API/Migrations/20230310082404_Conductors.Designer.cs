@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NextBus_API.Data;
 
@@ -11,9 +12,11 @@ using NextBus_API.Data;
 namespace NextBus_API.Migrations
 {
     [DbContext(typeof(NextBusDbContext))]
-    partial class NextBusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230310082404_Conductors")]
+    partial class Conductors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,14 +27,15 @@ namespace NextBus_API.Migrations
 
             modelBuilder.Entity("NextBus_API.Models.Entities.BusOwner", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("BusOwnerCode")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Mobile1")
                         .HasColumnType("nvarchar(max)");
@@ -57,24 +61,28 @@ namespace NextBus_API.Migrations
                     b.Property<string>("ServiceName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BusOwnerCode");
+                    b.HasKey("Id");
 
                     b.ToTable("BusOwners");
                 });
 
             modelBuilder.Entity("NextBus_API.Models.Entities.Conductor", b =>
                 {
-                    b.Property<string>("ConductorCode")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BusOwnerCode")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("BusOwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConductorCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Mobile1")
                         .HasColumnType("nvarchar(max)");
@@ -94,9 +102,9 @@ namespace NextBus_API.Migrations
                     b.Property<string>("RegDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ConductorCode");
+                    b.HasKey("Id");
 
-                    b.HasIndex("BusOwnerCode");
+                    b.HasIndex("BusOwnerId");
 
                     b.ToTable("Conductors");
                 });
@@ -105,7 +113,9 @@ namespace NextBus_API.Migrations
                 {
                     b.HasOne("NextBus_API.Models.Entities.BusOwner", "BusOwner")
                         .WithMany()
-                        .HasForeignKey("BusOwnerCode");
+                        .HasForeignKey("BusOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BusOwner");
                 });

@@ -88,7 +88,7 @@ namespace NextBus_API.Controllers
         {
             // Check if exists
 
-            var existsBusOwner = await nextBusDbContext.BusOwners.FindAsync(id);
+            var existsBusOwner = await nextBusDbContext.BusOwners.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existsBusOwner != null)
             {
@@ -114,7 +114,7 @@ namespace NextBus_API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> DeleteBusOwner(Guid id)
         {
-            var existsBusOwner = await nextBusDbContext.BusOwners.FindAsync(id);
+            var existsBusOwner = await nextBusDbContext.BusOwners.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existsBusOwner != null)
             {
