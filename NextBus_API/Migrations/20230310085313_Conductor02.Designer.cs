@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NextBus_API.Data;
 
@@ -11,9 +12,11 @@ using NextBus_API.Data;
 namespace NextBus_API.Migrations
 {
     [DbContext(typeof(NextBusDbContext))]
-    partial class NextBusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230310085313_Conductor02")]
+    partial class Conductor02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
